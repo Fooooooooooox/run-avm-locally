@@ -35,6 +35,7 @@ let App = {
       web3Provider = window.web3.currentProvider;
     }
     // If no injected web3 instance is detected, fall back to Ganache
+    // 用ganache启动的本地l1
     else {
       web3Provider = new ethers.providers.JsonRpcProvider(
         "http://localhost:7545"
@@ -42,6 +43,7 @@ let App = {
     }
 
     const contracts = require("../compiled.json");
+    // 启动l2
     App.provider = new ArbProvider(
       "http://localhost:1235",
       contracts,

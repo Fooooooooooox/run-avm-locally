@@ -57,3 +57,7 @@ pip instal .
 arbc-truffle arbitrum-0.2.0/demos/myContract/compiled.json arbitrum-0.2.0/demos/myContract/contract.ao 
 ```
 成功生成contract.ao 
+
+// TODO: 详细看arbitrum-0.2.0/packages/arb-compiler-evm 
+
+## 构建交易
