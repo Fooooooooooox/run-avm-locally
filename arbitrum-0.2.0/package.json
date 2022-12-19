@@ -1,0 +1,42 @@
+{
+  "name": "arbitrum",
+  "version": "0.2.0",
+  "description": "The Arbitrum Monorepo",
+  "author": "Offchain Labs, Inc.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OffchainLabs/arbitrum.git"
+  },
+  "bugs": {
+    "url": "https://github.com/offchainlabs/arbitrum/issues"
+  },
+  "homepage": "https://offchainlabs.com/",
+  "scripts": {
+    "install:deps": "./scripts/install-deps",
+    "install:ci": "./scripts/install-ci",
+    "install:validator": "./scripts/install-validator",
+    "update-abi": "./scripts/update-go-abi"
+  },
+  "engines": {
+    "node": ">= 8.0.0 < 12.0.0",
+    "npm": "^6.0.0",
+    "yarn": "^1.0.0"
+  },
+  "engine-strict": true,
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/arb-bridge-eth",
+      "packages/arb-provider-ethers",
+      "packages/arb-provider-truffle",
+      "packages/arb-provider-web3",
+      "packages/arb-compiler-evm/tests/sol-syscall",
+      "demos/*",
+      "workspace/*"
+    ]
+  },
+  "devDependencies": {
+    "ganache-cli": "6.5.0"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "arb-provider-truffle",
+  "version": "0.2.0",
+  "description": "Arbitrum provider for truffle",
+  "author": "Offchain Labs, Inc.",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/offchainlabs/arbitrum.git",
+    "directory": "packages/arb-provider-truffle"
+  },
+  "scripts": {
+    "test": "jest --config jest.config.js",
+    "format": "yarn run prettier '**/*.{js,json,md,ts,yml}' --write && yarn run lint --fix",
+    "lint": "eslint ."
+  },
+  "bugs": {
+    "url": "https://github.com/offchainlabs/arbitrum/issues"
+  },
+  "homepage": "https://offchainlabs.com",
+  "dependencies": {
+    "callsite": "~1.0.0",
+    "ganache-core": "2.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.2.1",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.9.0",
+    "jest-junit": "^7.0.0",
+    "prettier": "^1.18.2"
+  }
+}

@@ -1,0 +1,14 @@
+-i https://pypi.org/simple
+cytoolz==0.10.0 ; implementation_name == 'cpython'
+decorator==4.4.0
+eth-abi==2.0.0
+eth-hash==0.2.0
+eth-typing==2.1.0
+eth-utils==1.6.4
+future==0.17.1
+networkx==2.3
+parsimonious==0.8.1
+pycryptodome==3.8.2
+pyevmasm==0.2.1
+six==1.12.0
+toolz==0.10.0
