@@ -37,6 +37,9 @@
     ]
   },
   "devDependencies": {
-    "ganache-cli": "6.5.0"
+    "arb-provider-ethers": "file:packages/arb-provider-ethers",
+    "arb-provider-truffle": "file:packages/arb-provider-truffle",
+    "ganache-cli": "6.5.0",
+    "truffle": "^5.7.0"
   }
 }
