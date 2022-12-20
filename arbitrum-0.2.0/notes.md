@@ -20,6 +20,7 @@ ln -s -f /usr/local/bin/python2.7 /usr/local/bin/python3
 
 ```shell
 cd packages/arb-bridge-eth
+npm i --save-dev
 truffle migrate
 ```
 
@@ -60,4 +61,15 @@ arbc-truffle arbitrum-0.2.0/demos/myContract/compiled.json arbitrum-0.2.0/demos/
 
 // TODO: 详细看arbitrum-0.2.0/packages/arb-compiler-evm 
 
-## 构建交易
+## wallet.sendTransaction
+
+发送一笔交易的详细过程（先把交易摘要发送到链上，再有validator执行并上传状态根）：
+1. 用户给l2发送一笔交易，l2的avm执行这个交易并生成一个新的状态。
+2. 管理者把状态变化转换成assertion（交易摘要），质押后上传到l1的inbox合约
+3. validator从l1 inbox中监听到交易后在本地进行验证，将生成的新的状态上传到l1 （如果其他的validator发现l1上的状态根和自己本地计算出来的不一样，就发起挑战）
+
+向l2发送交易之前，需要启动l2的validator：
+
+当前的这个版本启动validator的时候需要启动coordinatorServer和followerServer。其中coordinator是将状态根上传到l1的，follower是读取l1上的交易在本地执行，监听是否有争议的。
+
+### 启动validator

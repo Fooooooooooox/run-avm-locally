@@ -12,11 +12,11 @@ set -e
 pip3 install -r requirements.txt
 pip3 install -r requirements-dev.txt
 
-# Setup pre-commit
-pre-commit install
+# # Setup pre-commit
+# pre-commit install
 
 # Install conan
-virtualenv --no-site-packages vconan
+virtualenv vconan
 . vconan/bin/activate
 pip3 install --upgrade conan
 # conan nonstd-lite
@@ -28,5 +28,5 @@ deactivate
 # Install arb-compiler-evm
 cd packages/arb-compiler-evm
 pip3 install -r requirements.txt
-python3 setup.py develop # TODO: may need sudo or --user here!
+sudo python3 setup.py develop # TODO: may need sudo or --user here!
 cd ../..

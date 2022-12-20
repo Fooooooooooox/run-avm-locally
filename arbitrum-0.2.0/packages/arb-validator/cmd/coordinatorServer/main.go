@@ -19,6 +19,7 @@ package main
 import (
 	jsonenc "encoding/json"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -62,22 +63,35 @@ func attachProfiler(router *mux.Router) {
 // 5) ethURL
 func main() {
 
+	// vmType，因为arb官方维护了两个版本的avm：cpp版本和go版本（默认是cpp版本，说是觉得cpp更快
 	vmType := flag.String("avm", "cpp", "Select the AVM implementation")
+	ao := flag.String("ao", "arbitrum-0.2.0/demos/myContract/contract.ao", "This is the Compiled Arbitrum bytecode file")
+	privateKeyFile := flag.String("privateKeyFile", "arbitrum-0.2.0/validators-Info/private_key.txt", "This the private key file")
+	publicAddressesFile := flag.String("publicAddressesFile", "arbitrum-0.2.0/validators-Info/validator_addresses.txt:", "This the public addresses file (newline separated)")
+	ethBridgeFile := flag.String("ethBridgeFile", "arbitrum-0.2.0/packages/arb-bridge-eth/bridge_eth_addresses.json", "This is the Global EthBridge addresses json file")
+	ethURL := flag.String("ethURL", "ws://127.0.0.1:7545", "This is the ethURL ")
 	flag.Parse()
 
-	// Check number of args
-	if len(flag.Args()) != 5 {
-		log.Fatalln("usage: coordinatorServer <contract.ao> <private_key.txt> <validator_addresses.txt> <bridge_eth_addresses.json> <ethURL>")
-	}
+	fmt.Println(*vmType)
+
+	log.Print(flag.Args())
+
+	// // Check number of args
+	// if len(flag.Args()) != 5 {
+	// 	log.Fatalln("usage: coordinatorServer <contract.ao> <private_key.txt> <validator_addresses.txt> <bridge_eth_addresses.json> <ethURL>")
+	// }
 
 	// 1) Compiled Arbitrum bytecode
-	machine, err := loader.LoadMachineFromFile(flag.Arg(0), true, *vmType)
+	machine, err := loader.LoadMachineFromFile(*ao, true, *vmType)
 	if err != nil {
 		log.Fatal("Loader Error: ", err)
 	}
+	// h := machine.Hash()
+	// slice := h[:]
+	// log.Printf("machine loaded:%s", hexutil.Encode(slice))
 
 	// 2) Private key
-	keyFile, err := os.Open(flag.Arg(1))
+	keyFile, err := os.Open(*privateKeyFile)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -95,7 +109,7 @@ func main() {
 	}
 
 	// 3) All public key addresses
-	addrFile, err := os.Open(flag.Arg(2))
+	addrFile, err := os.Open(*publicAddressesFile)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -114,7 +128,7 @@ func main() {
 	}
 
 	// 4) Global EthBridge addresses json
-	jsonFile, err := os.Open(flag.Arg(3))
+	jsonFile, err := os.Open(*ethBridgeFile)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -129,10 +143,10 @@ func main() {
 	}
 
 	// 5) URL
-	ethURL := flag.Arg(4)
+	// ethURL := flag.Arg(4)
 
 	// Validator creation
-	server := coordinator.NewRPCServer(machine, key, validators, connectionInfo, ethURL)
+	server := coordinator.NewRPCServer(machine, key, validators, connectionInfo, *ethURL)
 
 	// Run server
 	s := rpc.NewServer()
